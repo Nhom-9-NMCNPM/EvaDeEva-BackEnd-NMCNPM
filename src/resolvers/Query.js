@@ -1,12 +1,15 @@
 const Query = {
-    async users(parent, agrs, {prisma}, info) {
-        return await prisma.user.findMany();
-    },
-    async posts(parent, agrs, {prisma}, info) { 
-        return await prisma.post.findMany();
-    }   
+    async getPizza(parent, agrs, {prisma}, info) {
+        return await prisma.pizza.findMany();
+    }, 
+    async getWater(parent, agrs, {prisma}, info) {
+        return await prisma.water.findMany();
+    }, 
+    async getCombo(parent, agrs, {prisma}, info) {
+        return await prisma.combo.findMany();
+    }, 
+    async getMybox(parent, agrs, {prisma}, info) {
+        return await prisma.mybox.findMany();
+    },   
 }
-// module.exports={
-//     Query: Query,
-// }
 export default Query;

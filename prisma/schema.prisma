@@ -10,32 +10,60 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-model Post {
+model Pizza {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  comments Comment[]
+  name     String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  img      String
+  price Int 
 }
-
+model Water {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  img      String
+  price Int 
+}
+model Combo {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  img      String
+  price Int 
+}
+model Mybox {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  img      String
+  price Int 
+}
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
   name    String?
-  posts   Post[]
-  comments Comment[]
+  uid     String
+  phoneNumber String
+  address String
+  point Int
+  admin Boolean
+  orders  Order[] 
 }
-model Comment {
+model Order {
   id Int @id @default(autoincrement())
-  text String
-  author User @relation(fields: [authorId], references: [id])
-  authorId  Int
-  post Post @relation(fields: [postId], references: [id])
-  postId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  namePro   String[] 
+  price     Int 
+  status    String
+  user      User @relation(fields: [userId], references: [id])
+  userId    Int
 }

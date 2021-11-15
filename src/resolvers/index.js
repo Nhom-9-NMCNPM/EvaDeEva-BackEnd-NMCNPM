@@ -1,9 +1,11 @@
-// const {Query} = require('./Query');
 import Query from './Query';
+import Mutation from './Mutation';
+const {
+    GraphQLUpload,
+  } = require('graphql-upload');
 const resolvers = {
-    Query
+    Query,
+    Upload: GraphQLUpload,
+    Mutation,
 };
-// module.exports ={
-//     resolvers:resolvers
-// }
 export default resolvers;
