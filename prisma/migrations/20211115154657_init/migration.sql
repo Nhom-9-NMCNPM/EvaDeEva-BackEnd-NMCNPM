@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Pizza" (
+CREATE TABLE "Trousers" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -7,12 +7,19 @@ CREATE TABLE "Pizza" (
     "description" VARCHAR(255) NOT NULL,
     "img" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
+    "codePro" TEXT NOT NULL,
+    "size_M" INTEGER NOT NULL,
+    "size_S" INTEGER NOT NULL,
+    "size_L" INTEGER NOT NULL,
+    "size_XL" INTEGER NOT NULL,
+    "material" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Water" (
+CREATE TABLE "Shirt" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -20,12 +27,19 @@ CREATE TABLE "Water" (
     "description" VARCHAR(255) NOT NULL,
     "img" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
+    "codePro" TEXT NOT NULL,
+    "size_M" INTEGER NOT NULL,
+    "size_S" INTEGER NOT NULL,
+    "size_L" INTEGER NOT NULL,
+    "size_XL" INTEGER NOT NULL,
+    "material" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Combo" (
+CREATE TABLE "Dress" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -33,12 +47,19 @@ CREATE TABLE "Combo" (
     "description" VARCHAR(255) NOT NULL,
     "img" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
+    "codePro" TEXT NOT NULL,
+    "size_M" INTEGER NOT NULL,
+    "size_S" INTEGER NOT NULL,
+    "size_L" INTEGER NOT NULL,
+    "size_XL" INTEGER NOT NULL,
+    "material" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Mybox" (
+CREATE TABLE "Skirt" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -46,6 +67,13 @@ CREATE TABLE "Mybox" (
     "description" VARCHAR(255) NOT NULL,
     "img" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
+    "codePro" TEXT NOT NULL,
+    "size_M" INTEGER NOT NULL,
+    "size_S" INTEGER NOT NULL,
+    "size_L" INTEGER NOT NULL,
+    "size_XL" INTEGER NOT NULL,
+    "material" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -55,14 +83,30 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
-    "uid" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "point" INTEGER NOT NULL,
     "admin" BOOLEAN NOT NULL,
+    "staff" BOOLEAN NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Order" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "namePro" TEXT[],
+    "price" INTEGER NOT NULL,
+    "status" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+
+-- AddForeignKey
+ALTER TABLE "Order" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

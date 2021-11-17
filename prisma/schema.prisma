@@ -10,51 +10,103 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-model Pizza {
-  id        Int      @id @default(autoincrement())
+model SliderImg {
+  id    Int      @id @default(autoincrement())
+  img   String
+  publish   Boolean
+  name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name     String   @db.VarChar(255)
-  description String @db.VarChar(255)
-  img      String
-  price Int 
 }
-model Water {
-  id        Int      @id @default(autoincrement())
+model BannerImg {
+  id    Int      @id @default(autoincrement())
+  img   String
+  publish   Boolean
+  name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name     String   @db.VarChar(255)
-  description String @db.VarChar(255)
-  img      String
-  price Int 
 }
-model Combo {
+model Trousers {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name     String   @db.VarChar(255)
   description String @db.VarChar(255)
-  img      String
+  img      String[]
   price Int 
+  codePro  String
+  size_M  Int
+  size_S  Int
+  size_L Int
+  size_XL Int
+  material  String
+  color String
+  publish   Boolean
+  new Boolean
 }
-model Mybox {
+model Shirt {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name     String   @db.VarChar(255)
   description String @db.VarChar(255)
-  img      String
+  img      String[]
   price Int 
+  codePro  String
+  size_M  Int
+  size_S  Int
+  size_L Int
+  size_XL Int
+  material  String
+  color String
+  publish   Boolean
+  new Boolean
+}
+model Dress {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  img      String[]
+  price Int 
+  codePro  String
+  size_M  Int
+  size_S  Int
+  size_L Int
+  size_XL Int
+  material  String
+  publish   Boolean
+  color String
+  new Boolean
+}
+model Skirt {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name     String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  img      String[]
+  price Int 
+  codePro  String
+  size_M  Int
+  size_S  Int
+  size_L Int
+  size_XL Int
+  publish   Boolean
+  material  String
+  new Boolean
+  color String
 }
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
   name    String?
-  uid     String
   phoneNumber String
   address String
   point Int
   admin Boolean
+  staff Boolean
   orders  Order[] 
 }
 model Order {

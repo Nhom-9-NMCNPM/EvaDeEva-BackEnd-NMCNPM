@@ -91,22 +91,29 @@ const Mutation = {
             }
         }
     },
-    async createPizza(parent, args, {prisma, request}, info){
-        return prisma.pizza.create({
+    async createDress(parent, args, {prisma, request}, info){
+        return prisma.dress.create({
             data: {
                 ...args.data,
             }
         }, info);
     },
-    async createWater(parent, args, {prisma, request}, info){
-        return prisma.water.create({
+    async createShirt(parent, args, {prisma, request}, info){
+        return prisma.shirt.create({
             data:{
                 ...args.data,
             }
         }, info);
     },
-    async createCombo(parent, args, {prisma, request}, info){
-        return prisma.combo.create({
+    async createSkirt(parent, args, {prisma, request}, info){
+        return prisma.skirt.create({
+            data: {
+                ...args.data,
+            }
+        }, info);
+    },
+    async createTrousers(parent, args, {prisma, request}, info){
+        return prisma.trousers.create({
             data: {
                 ...args.data,
             }
@@ -129,51 +136,66 @@ const Mutation = {
             }
         }, info);
     }, 
-    async updatePizza(parent, args, {prisma, request}, info){
-        return prisma.pizza.update({
+    async updateDress(parent, args, {prisma, request}, info){
+        return prisma.dress.update({
             where:{
                 id: args.id,
             }, 
             data:{...args.data}
         }, info);
     }, 
-    async updateWater(parent, args, {prisma, request}, info){
-        return prisma.water.update({
+    async updateSkirt(parent, args, {prisma, request}, info){
+        return prisma.skirt.update({
             where:{
                 id: args.id,
             }, 
             data:{...args.data}
         }, info);
     }, 
-    async updateCombo(parent, args, {prisma, request}, info){
-        return prisma.combo.update({
+    async updateShirt(parent, args, {prisma, request}, info){
+        return prisma.shirt.update({
             where:{
                 id: args.id,
             }, 
             data:{...args.data}
         }, info);
     }, 
-    async deletePizza(parent, args, {prisma, request}, info){
-        return prisma.pizza.delete({
+    async updateTrousers(parent, args, {prisma, request}, info){
+        return prisma.trousers.update({
+            where:{
+                id: args.id,
+            }, 
+            data:{...args.data}
+        }, info);
+    }, 
+    async deleteDress(parent, args, {prisma, request}, info){
+        return prisma.dress.delete({
             where:{
                 id: args.id
             }
         }, info);
     }, 
-    async deleteWater(parent, args, {prisma, request}, info){
-        return prisma.water.delete({
+    async deleteSkirt(parent, args, {prisma, request}, info){
+        return prisma.skirt.delete({
             where:{
                 id: args.id
             }
         }, info)
     }, 
-    async deleteCombo(parent, args, {prisma, request}, info){
-        return prisma.combo.delete({
+    async deleteShirt(parent, args, {prisma, request}, info){
+        return prisma.shirt.delete({
             where:{
                 id: args.id
             }
         }, info)
     }, 
+    async deleteTrousers(parent, args, {prisma, request}, info){
+        return prisma.trousers.delete({
+            where:{
+                id: args.id
+            }
+        }, info)
+    },
     async deleteOrder(parent, args, {prisma, request}, info){
         return prisma.order.update({
             where:{

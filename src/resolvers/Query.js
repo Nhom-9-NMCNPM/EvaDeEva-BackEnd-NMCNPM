@@ -1,15 +1,25 @@
 const Query = {
-    async getPizza(parent, agrs, {prisma}, info) {
-        return await prisma.pizza.findMany();
+    async getDress(parent, agrs, {prisma}, info) {
+        return await prisma.dress.findMany();
     }, 
-    async getWater(parent, agrs, {prisma}, info) {
-        return await prisma.water.findMany();
+    async getShirt(parent, agrs, {prisma}, info) {
+        return await prisma.shirt.findMany();
     }, 
-    async getCombo(parent, agrs, {prisma}, info) {
-        return await prisma.combo.findMany();
+    async getSkirt(parent, agrs, {prisma}, info) {
+        return await prisma.skirt.findMany();
     }, 
-    async getMybox(parent, agrs, {prisma}, info) {
-        return await prisma.mybox.findMany();
+    async getTrousers(parent, agrs, {prisma}, info) {
+        return await prisma.trousers.findMany();
     },   
+    async getBannerImg(parent, agrs,{prisma}, info) {
+        return await prisma.bannerImg.findMany({
+            where:{
+                publish: true,
+            }
+        });
+    },
+    async getBannerImg(parent, agrs, {prisma}, info) {
+        return await prisma.bannerImg.findMany();
+    }
 }
 export default Query;
