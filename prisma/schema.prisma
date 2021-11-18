@@ -42,7 +42,7 @@ model Trousers {
   material  String
   color String
   publish   Boolean
-  new Boolean
+  newPro Boolean
 }
 model Shirt {
   id        Int      @id @default(autoincrement())
@@ -60,7 +60,7 @@ model Shirt {
   material  String
   color String
   publish   Boolean
-  new Boolean
+  newPro Boolean
 }
 model Dress {
   id        Int      @id @default(autoincrement())
@@ -78,7 +78,7 @@ model Dress {
   material  String
   publish   Boolean
   color String
-  new Boolean
+  newPro Boolean
 }
 model Skirt {
   id        Int      @id @default(autoincrement())
@@ -95,7 +95,7 @@ model Skirt {
   size_XL Int
   publish   Boolean
   material  String
-  new Boolean
+  newPro Boolean
   color String
 }
 model User {
