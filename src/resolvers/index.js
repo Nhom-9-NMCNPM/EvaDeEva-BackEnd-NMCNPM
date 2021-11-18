@@ -8,4 +8,4 @@ const resolvers = {
     Upload: GraphQLUpload,
     Mutation,
 };
-export default resolvers;
+export default resolvers; 
