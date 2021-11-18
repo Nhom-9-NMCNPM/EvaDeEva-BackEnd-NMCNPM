@@ -43,7 +43,7 @@ const typeDefs = gql`
         size_XL: Int!,
         material:  String!,
         color: String!,
-        new: Boolean!
+        newPro: Boolean!
         publish: Boolean!,
     }
     type Skirt{
@@ -61,7 +61,7 @@ const typeDefs = gql`
         size_XL: Int!,
         material:  String!,
         color: String!,
-        new: Boolean!
+        newPro: Boolean!
         publish: Boolean!,
     }
     type Trousers{
@@ -79,7 +79,7 @@ const typeDefs = gql`
         size_XL: Int!,
         material:  String!,
         color: String!,
-        new: Boolean!
+        newPro: Boolean!
         publish: Boolean!,
     }
     type Shirt{
@@ -98,7 +98,7 @@ const typeDefs = gql`
         material:  String!,
         color: String!,
         publish: Boolean!,
-        new: Boolean!
+        newPro: Boolean!
     }
     type Order{
         id: Int!,
@@ -118,7 +118,7 @@ const typeDefs = gql`
         getSliderImg:[SliderImg!]!,
     }
     type File {
-        url: String!
+        url: [String!]!
     }
     scalar Upload
     input createUserInput {
@@ -131,10 +131,9 @@ const typeDefs = gql`
         staff: Boolean!,
     }
     input createDressInput {
-        id:   Int,
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -142,13 +141,14 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input createShirtInput {
-        id:   Int,
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -156,13 +156,16 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input createSkirtInput {
-        id:   Int,
+        publish: Boolean!,
+        newPro: Boolean!
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -173,10 +176,9 @@ const typeDefs = gql`
         color: String!
     }
     input createTrousersInput {
-        id:   Int,
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -184,7 +186,9 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input updateUserInput {
         name: String!,
@@ -194,7 +198,7 @@ const typeDefs = gql`
     input updateDressInput {
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -202,7 +206,9 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input createOrderInput {
         namePro: [String!]!,
@@ -213,7 +219,7 @@ const typeDefs = gql`
     input updateShirtInput {
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -221,12 +227,14 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input updateSkirtInput {
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -234,12 +242,14 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input updateTrousersInput {
         name: String!,
         description: String!,
-        img:    String!,
+        img:    [String!]!,
         price: Int! ,
         codePro:  String!,
         size_M:  Int!,
@@ -247,14 +257,16 @@ const typeDefs = gql`
         size_L: Int!,
         size_XL: Int!,
         material:  String!,
-        color: String!
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     type Mutation{
         # login(data: LoginInput!): AuthPayload!
         # createUser(data: CreatedUserInput!): AuthPayload!
         # updateUser(data: UpdatedUserInput!): User!
         createUser(data: createUserInput!): User!
-        upLoadFile(file: Upload!): File!
+        upLoadFile(file: [Upload!]!): File!
         createDress(data: createDressInput!): Dress!,
         createSkirt(data: createSkirtInput!): Skirt!,
         createShirt(data: createShirtInput!): Shirt!,
