@@ -1,121 +1,126 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
 model SliderImg {
-  id    Int      @id @default(autoincrement())
-  img   String
+  id        Int      @id @default(autoincrement())
+  img       String
   publish   Boolean
-  name String
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 model BannerImg {
-  id    Int      @id @default(autoincrement())
-  img   String
+  id        Int      @id @default(autoincrement())
+  img       String
   publish   Boolean
-  name String
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 model Trousers {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name     String   @db.VarChar(255)
-  description String @db.VarChar(255)
-  img      String[]
-  price Int 
-  codePro  String
-  size_M  Int
-  size_S  Int
-  size_L Int
-  size_XL Int
-  material  String
-  color String
-  publish   Boolean
-  new Boolean
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  price       Int
+  codePro     String
+  size_M      Int
+  size_S      Int
+  size_L      Int
+  size_XL     Int
+  material    String
+  color       String
+  new         Boolean
+  publish     Boolean
+  img         String[]
 }
+
 model Shirt {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name     String   @db.VarChar(255)
-  description String @db.VarChar(255)
-  img      String[]
-  price Int 
-  codePro  String
-  size_M  Int
-  size_S  Int
-  size_L Int
-  size_XL Int
-  material  String
-  color String
-  publish   Boolean
-  new Boolean
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  price       Int
+  codePro     String
+  size_M      Int
+  size_S      Int
+  size_L      Int
+  size_XL     Int
+  material    String
+  color       String
+  new         Boolean
+  publish     Boolean
+  img         String[]
 }
+
 model Dress {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name     String   @db.VarChar(255)
-  description String @db.VarChar(255)
-  img      String[]
-  price Int 
-  codePro  String
-  size_M  Int
-  size_S  Int
-  size_L Int
-  size_XL Int
-  material  String
-  publish   Boolean
-  color String
-  new Boolean
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  price       Int
+  codePro     String
+  size_M      Int
+  size_S      Int
+  size_L      Int
+  size_XL     Int
+  material    String
+  color       String
+  new         Boolean
+  publish     Boolean
+  img         String[]
 }
+
 model Skirt {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  price       Int
+  codePro     String
+  size_M      Int
+  size_S      Int
+  size_L      Int
+  size_XL     Int
+  material    String
+  color       String
+  new         Boolean
+  publish     Boolean
+  img         String[]
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  name        String?
+  phoneNumber String
+  address     String
+  point       Int
+  admin       Boolean
+  staff       Boolean
+  orders      Order[]
+}
+
+model Order {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name     String   @db.VarChar(255)
-  description String @db.VarChar(255)
-  img      String[]
-  price Int 
-  codePro  String
-  size_M  Int
-  size_S  Int
-  size_L Int
-  size_XL Int
-  publish   Boolean
-  material  String
-  new Boolean
-  color String
-}
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  phoneNumber String
-  address String
-  point Int
-  admin Boolean
-  staff Boolean
-  orders  Order[] 
-}
-model Order {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  namePro   String[] 
-  price     Int 
+  namePro   String[]
+  price     Int
   status    String
-  user      User @relation(fields: [userId], references: [id])
   userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }
