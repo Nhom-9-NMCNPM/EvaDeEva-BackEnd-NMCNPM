@@ -40,9 +40,9 @@ model Trousers {
   size_XL     Int
   material    String
   color       String
-  newPro         Boolean
   publish     Boolean
   img         String[]
+  newPro      Boolean
 }
 
 model Shirt {
@@ -59,9 +59,9 @@ model Shirt {
   size_XL     Int
   material    String
   color       String
-  newPro         Boolean
   publish     Boolean
   img         String[]
+  newPro      Boolean
 }
 
 model Dress {
@@ -78,9 +78,9 @@ model Dress {
   size_XL     Int
   material    String
   color       String
-  newPro         Boolean
   publish     Boolean
   img         String[]
+  newPro      Boolean
 }
 
 model Skirt {
@@ -97,9 +97,9 @@ model Skirt {
   size_XL     Int
   material    String
   color       String
-  newPro         Boolean
   publish     Boolean
   img         String[]
+  newPro      Boolean
 }
 
 model User {
