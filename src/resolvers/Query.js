@@ -20,6 +20,9 @@ const Query = {
     },
     async getBannerImg(parent, agrs, {prisma}, info) {
         return await prisma.bannerImg.findMany();
+    }, 
+    async getUser(parent, agrs, {prisma}, info){
+        return await prisma.user.findMany();
     }
 }
 export default Query;
