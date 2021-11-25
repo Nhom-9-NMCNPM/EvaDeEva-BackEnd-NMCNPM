@@ -117,6 +117,7 @@ const typeDefs = gql`
         getBannerImg:[BannerImg!]!,
         getSliderImg:[SliderImg!]!,
         getUser: [User!]!,
+        getOrder: [Order!]!,
     }
     type File {
         url: [String!]!
