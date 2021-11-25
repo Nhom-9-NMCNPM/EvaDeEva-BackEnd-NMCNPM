@@ -109,6 +109,13 @@ const typeDefs = gql`
         user: User!,
         status: String!,
     }
+    type Voucher{
+        id: Int!,
+        createdAt: String!,
+        updatedAt: String!,
+        disCount: Int!,
+        condition: Int!,
+    }
     type Query {
         getDress:[Dress!]!,
         getTrousers:[Trousers!]!,
@@ -117,11 +124,16 @@ const typeDefs = gql`
         getBannerImg:[BannerImg!]!,
         getSliderImg:[SliderImg!]!,
         getUser: [User!]!,
+        getVoucher: [Voucher!]!
     }
     type File {
         url: [String!]!
     }
     scalar Upload
+    input createVoucherInput{
+        disCount: Int!,
+        condition: Int!
+    }
     input createUserInput {
         email: String!,
         name: String!,
@@ -232,6 +244,10 @@ const typeDefs = gql`
         publish: Boolean!,
         newPro: Boolean!
     }
+    input updateVoucherInput {
+        disCount: Int,
+        condition: Int,
+    }
     input updateSkirtInput {
         name: String!,
         description: String!,
@@ -266,6 +282,7 @@ const typeDefs = gql`
         # login(data: LoginInput!): AuthPayload!
         # createUser(data: CreatedUserInput!): AuthPayload!
         # updateUser(data: UpdatedUserInput!): User!
+        createVoucher(data: createVoucherInput!):Voucher!,
         createUser(data: createUserInput!): User!
         upLoadFile(file: [Upload!]!): File!
         createDress(data: createDressInput!): Dress!,
@@ -273,6 +290,7 @@ const typeDefs = gql`
         createShirt(data: createShirtInput!): Shirt!,
         createOrder(data: createOrderInput!): Order!,
         createTrousers(data: createTrousersInput!): Trousers!,
+        updateVoucher(data: updateVoucherInput!, id: Int!): Voucher!,
         updateUser(data: updateUserInput!, email: String!): User!,
         updateDress(data: updateDressInput!, id: Int!): Dress!,
         updateSkirt(data: updateSkirtInput!, id: Int!):Skirt!,
@@ -283,6 +301,7 @@ const typeDefs = gql`
         deleteSkirt(id: Int!): Skirt!,
         deleteOrder(id: Int!): Order!,
         deleteDress(id: Int!): Dress!,
+        deleteVoucher(id: Int!):Voucher!,
     }
 `;
 

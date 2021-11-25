@@ -23,6 +23,9 @@ const Query = {
     }, 
     async getUser(parent, agrs, {prisma}, info){
         return await prisma.user.findMany();
+    },
+    async getVoucher(parent, agrs, {prisma}, info) {
+        return await prisma.voucher.findMany();
     }
 }
 export default Query;
