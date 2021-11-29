@@ -1,3 +1,4 @@
+
 const Query = {
     async getDress(parent, agrs, {prisma}, info) {
         return await prisma.dress.findMany();
@@ -23,6 +24,12 @@ const Query = {
     }, 
     async getUser(parent, agrs, {prisma}, info){
         return await prisma.user.findMany();
+    },
+    async getVoucher(parent, agrs, {prisma}, info) {
+        return await prisma.voucher.findMany();
+    },
+    async getOrder(parent, agrs, {prisma}, info) {
+        return await prisma.order.findMany();
     }
 }
 export default Query;

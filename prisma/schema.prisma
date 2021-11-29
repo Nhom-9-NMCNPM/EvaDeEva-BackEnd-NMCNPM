@@ -124,4 +124,10 @@ model Order {
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
 }
-
+model Voucher {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  disCount Int
+  condition Int
+}

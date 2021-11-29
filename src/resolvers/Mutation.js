@@ -88,6 +88,13 @@ const Mutation = {
             url
         }
     }, 
+    async createVoucher(parent, args, {prisma, request}, info){
+        return await prisma.voucher.create({
+            data:{
+                ...args.data,
+            }
+        }, info)
+    },
     async createUser(parent, args, {prisma, request}, info){
         const userExist = await prisma.user.findUnique({
             where: {
@@ -158,6 +165,15 @@ const Mutation = {
             }
         }, info);
     }, 
+    async updateVoucher(parent, args, {prisma, request}, info){
+        return prisma.voucher.update({
+            where:{
+                id: args.id,
+            }, 
+            data:{...args.data}
+        }, info)
+    }
+    ,
     async updateDress(parent, args, {prisma, request}, info){
         return prisma.dress.update({
             where:{
@@ -189,7 +205,17 @@ const Mutation = {
             }, 
             data:{...args.data}
         }, info);
-    }, 
+    },
+    async updateOrder(parent, args, {prisma, request}, info) {
+        return prisma.order.update({
+            where: {
+                id: args.id
+            },
+            data: {
+                ...args.data,
+            },
+        },info)
+    },
     async deleteDress(parent, args, {prisma, request}, info){
         return prisma.dress.delete({
             where:{
@@ -211,6 +237,13 @@ const Mutation = {
             }
         }, info)
     }, 
+    async deleteVoucher(parent, args, {prisma, request}, info){
+        return prisma.voucher.delete({
+            where:{
+                id: args.id
+            }
+        }, info)
+    },
     async deleteTrousers(parent, args, {prisma, request}, info){
         return prisma.trousers.delete({
             where:{
