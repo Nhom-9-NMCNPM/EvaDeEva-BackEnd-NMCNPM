@@ -177,7 +177,7 @@ const Mutation = {
     async updateDress(parent, args, {prisma, request}, info){
         return prisma.dress.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
@@ -185,7 +185,7 @@ const Mutation = {
     async updateSkirt(parent, args, {prisma, request}, info){
         return prisma.skirt.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
@@ -193,7 +193,7 @@ const Mutation = {
     async updateShirt(parent, args, {prisma, request}, info){
         return prisma.shirt.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
@@ -201,7 +201,7 @@ const Mutation = {
     async updateTrousers(parent, args, {prisma, request}, info){
         return prisma.trousers.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
