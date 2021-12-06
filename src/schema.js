@@ -325,7 +325,7 @@ const typeDefs = gql`
         deleteOrder(id: Int!): Order!,
         deleteDress(id: Int!): Dress!,
         deleteVoucher(id: Int!):Voucher!,
-        deleteVoucher(id: Int!):VoucherPremium!,
+        deleteVoucherPremium(id: Int!):VoucherPremium!,
     }
 `;
 
