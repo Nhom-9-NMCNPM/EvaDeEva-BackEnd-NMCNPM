@@ -131,3 +131,10 @@ model Voucher {
   disCount Int
   condition Int
 }
+model VoucherPremium {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  disCount Int
+  condition Int
+}

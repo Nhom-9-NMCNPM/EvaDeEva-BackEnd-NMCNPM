@@ -116,6 +116,13 @@ const typeDefs = gql`
         disCount: Int!,
         condition: Int!,
     }
+    type VoucherPremium{
+        id: Int!,
+        createdAt: String!,
+        updatedAt: String!,
+        disCount: Int!,
+        condition: Int!,
+    }
     type Query {
         getDress:[Dress!]!,
         getTrousers:[Trousers!]!,
@@ -126,12 +133,17 @@ const typeDefs = gql`
         getUser: [User!]!,
         getOrder: [Order!]!,
         getVoucher: [Voucher!]!,
+        getVoucherPremium: [VoucherPremium!]!,
     }
     type File {
         url: [String!]!
     }
     scalar Upload
     input createVoucherInput{
+        disCount: Int!,
+        condition: Int!
+    }
+    input createVoucherPremiumInput{
         disCount: Int!,
         condition: Int!
     }
@@ -249,7 +261,10 @@ const typeDefs = gql`
         disCount: Int,
         condition: Int,
     }
-
+    input updateVoucherPremiumInput {
+        disCount: Int,
+        condition: Int,
+    }
     input updateOrderInput {
         status: String!,
     }
@@ -288,6 +303,7 @@ const typeDefs = gql`
         # createUser(data: CreatedUserInput!): AuthPayload!
         # updateUser(data: UpdatedUserInput!): User!
         createVoucher(data: createVoucherInput!):Voucher!,
+        createVoucherPremium(data: createVoucherPremiumInput!):VoucherPremium!,
         createUser(data: createUserInput!): User!
         upLoadFile(file: [Upload!]!): File!
         createDress(data: createDressInput!): Dress!,
@@ -296,6 +312,7 @@ const typeDefs = gql`
         createOrder(data: createOrderInput!): Order!,
         createTrousers(data: createTrousersInput!): Trousers!,
         updateVoucher(data: updateVoucherInput!, id: Int!): Voucher!,
+        updateVoucherPremium(data: updateVoucherPremiumInput!, id: Int!): VoucherPremium!, 
         updateUser(data: updateUserInput!, email: String!): User!,
         updateDress(data: updateDressInput!, proId: Int!): Dress!,
         updateSkirt(data: updateSkirtInput!, proId: Int!):Skirt!,
@@ -308,6 +325,7 @@ const typeDefs = gql`
         deleteOrder(id: Int!): Order!,
         deleteDress(id: Int!): Dress!,
         deleteVoucher(id: Int!):Voucher!,
+        deleteVoucher(id: Int!):VoucherPremium!,
     }
 `;
 

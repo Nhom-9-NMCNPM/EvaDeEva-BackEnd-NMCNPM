@@ -95,6 +95,13 @@ const Mutation = {
             }
         }, info)
     },
+    async createVoucherPremium(parent, args, {prisma, request}, info){
+        return await prisma.voucherPremium.create({
+            data:{
+                ...args.data,
+            }
+        }, info)
+    },
     async createUser(parent, args, {prisma, request}, info){
         const userExist = await prisma.user.findUnique({
             where: {
@@ -172,8 +179,15 @@ const Mutation = {
             }, 
             data:{...args.data}
         }, info)
-    }
-    ,
+    },
+    async updateVoucherPremium(parent, args, {prisma, request}, info){
+        return prisma.voucherPremium.update({
+            where:{
+                id: args.id,
+            }, 
+            data:{...args.data}
+        }, info)
+    },
     async updateDress(parent, args, {prisma, request}, info){
         return prisma.dress.update({
             where:{
@@ -239,6 +253,13 @@ const Mutation = {
     }, 
     async deleteVoucher(parent, args, {prisma, request}, info){
         return prisma.voucher.delete({
+            where:{
+                id: args.id
+            }
+        }, info)
+    },
+    async deleteVoucherPremium(parent, args, {prisma, request}, info){
+        return prisma.voucherPremium.delete({
             where:{
                 id: args.id
             }
