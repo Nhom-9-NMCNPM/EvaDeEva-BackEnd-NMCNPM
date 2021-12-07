@@ -88,6 +88,18 @@ const Mutation = {
             url
         }
     }, 
+    async deleteFile(parent, args, {prisma}, info){
+        var status;
+        args.filesName.forEach(fileName =>{
+            fs.unlink(path.join(__dirname, `../../public/img/${fileName}`), (err)=>{
+                if(err) status='False';
+                else{
+                    status = 'Success';
+                }
+            }) 
+        })
+        return status;
+    },
     async createVoucher(parent, args, {prisma, request}, info){
         return await prisma.voucher.create({
             data:{

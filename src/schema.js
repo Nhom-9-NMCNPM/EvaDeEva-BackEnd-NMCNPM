@@ -305,7 +305,8 @@ const typeDefs = gql`
         createVoucher(data: createVoucherInput!):Voucher!,
         createVoucherPremium(data: createVoucherPremiumInput!):VoucherPremium!,
         createUser(data: createUserInput!): User!
-        upLoadFile(file: [Upload!]!): File!
+        upLoadFile(file: [Upload!]!): File!,
+        deleteFile(filesName: [String]):String,
         createDress(data: createDressInput!): Dress!,
         createSkirt(data: createSkirtInput!): Skirt!,
         createShirt(data: createShirtInput!): Shirt!,
