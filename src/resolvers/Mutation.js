@@ -88,8 +88,27 @@ const Mutation = {
             url
         }
     }, 
+    async deleteFile(parent, args, {prisma}, info){
+        var status;
+        args.filesName.forEach(fileName =>{
+            fs.unlink(path.join(__dirname, `../../public/img/${fileName}`), (err)=>{
+                if(err) status='False';
+                else{
+                    status = 'Success';
+                }
+            }) 
+        })
+        return status;
+    },
     async createVoucher(parent, args, {prisma, request}, info){
         return await prisma.voucher.create({
+            data:{
+                ...args.data,
+            }
+        }, info)
+    },
+    async createVoucherPremium(parent, args, {prisma, request}, info){
+        return await prisma.voucherPremium.create({
             data:{
                 ...args.data,
             }
@@ -172,12 +191,19 @@ const Mutation = {
             }, 
             data:{...args.data}
         }, info)
-    }
-    ,
+    },
+    async updateVoucherPremium(parent, args, {prisma, request}, info){
+        return prisma.voucherPremium.update({
+            where:{
+                id: args.id,
+            }, 
+            data:{...args.data}
+        }, info)
+    },
     async updateDress(parent, args, {prisma, request}, info){
         return prisma.dress.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
@@ -185,7 +211,7 @@ const Mutation = {
     async updateSkirt(parent, args, {prisma, request}, info){
         return prisma.skirt.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
@@ -193,7 +219,7 @@ const Mutation = {
     async updateShirt(parent, args, {prisma, request}, info){
         return prisma.shirt.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
@@ -201,11 +227,21 @@ const Mutation = {
     async updateTrousers(parent, args, {prisma, request}, info){
         return prisma.trousers.update({
             where:{
-                id: args.id,
+                id: args.proId,
             }, 
             data:{...args.data}
         }, info);
-    }, 
+    },
+    async updateOrder(parent, args, {prisma, request}, info) {
+        return prisma.order.update({
+            where: {
+                id: args.id
+            },
+            data: {
+                ...args.data,
+            },
+        },info)
+    },
     async deleteDress(parent, args, {prisma, request}, info){
         return prisma.dress.delete({
             where:{
@@ -229,6 +265,13 @@ const Mutation = {
     }, 
     async deleteVoucher(parent, args, {prisma, request}, info){
         return prisma.voucher.delete({
+            where:{
+                id: args.id
+            }
+        }, info)
+    },
+    async deleteVoucherPremium(parent, args, {prisma, request}, info){
+        return prisma.voucherPremium.delete({
             where:{
                 id: args.id
             }
