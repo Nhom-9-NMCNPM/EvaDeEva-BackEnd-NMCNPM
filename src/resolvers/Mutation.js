@@ -293,6 +293,13 @@ const Mutation = {
                 status: "đã hủy",
             }
         }, info);
+    },
+    async deleteUser(parent, args, {prisma, request}, info){
+        return prisma.user.delete({
+            where:{
+                id:args.id
+            }
+        })
     }
 }
 export default Mutation;
