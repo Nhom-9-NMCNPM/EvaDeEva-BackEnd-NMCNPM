@@ -315,6 +315,7 @@ const typeDefs = gql`
         updateVoucher(data: updateVoucherInput!, id: Int!): Voucher!,
         updateVoucherPremium(data: updateVoucherPremiumInput!, id: Int!): VoucherPremium!, 
         updateUser(data: updateUserInput!, email: String!): User!,
+        deleteUser(id: Int!): User!,
         updateDress(data: updateDressInput!, proId: Int!): Dress!,
         updateSkirt(data: updateSkirtInput!, proId: Int!):Skirt!,
         updateShirt(data: updateShirtInput!, proId: Int!):Shirt!,
