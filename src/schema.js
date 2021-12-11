@@ -111,7 +111,7 @@ const typeDefs = gql`
     }
     type Voucher{
         id: Int!,
-        createdAt: String!,
+        createdAt: String!, 
         updatedAt: String!,
         disCount: Int!,
         condition: Int!,

@@ -290,7 +290,7 @@ const Mutation = {
                 id: args.id
             },
             data: {
-                status: "đã hủy",
+                status: "Hủy đơn hàng",
             }
         }, info);
     }
