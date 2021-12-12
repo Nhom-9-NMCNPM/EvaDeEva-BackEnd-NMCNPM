@@ -78,7 +78,7 @@ const Mutation = {
             const randomName = generateRandomString(12)+ext;
             const pathName = path.join(__dirname, `../../public/img/${randomName}`);
             await stream.pipe(fs.createWriteStream(pathName));
-            return `http://localhost:4000/img/${randomName}`
+            return `https://database-project1-demo.herokuapp.com/img/${randomName}`
         })
         return {
             url
