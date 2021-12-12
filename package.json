@@ -5,23 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node ./src/server.js",
-    "build": "nodemon src/server.js --exec babel-node "
+    "build": "prisma generate",
+    "dev":"nodemon src/server.js --exec babel-node "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^2.0.12",
+    "jsonwebtoken": "^8.5.1",
+    "bcrypt": "^5.0.1"
+  },
+  "dependencies": {
+    "prisma": "^2.29.1",
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
     "@babel/node": "^7.14.9",
     "@babel/preset-env": "^7.15.0",
     "@prisma/client": "^2.29.1",
-    "nodemon": "^2.0.12",
-    "prisma": "^2.29.1",
-    "jsonwebtoken": "^8.5.1",
-    "bcrypt": "^5.0.1"
-  },
-  "dependencies": {
     "apollo-server": "^3.1.2",
     "apollo-server-express": "^3.4.0",
     "cors": "^2.8.5",
