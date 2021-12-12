@@ -105,8 +105,8 @@ const typeDefs = gql`
         createdAt: String!,
         updatedAt: String!,
         namePro: [String!]!,
-        price: String!,
-        user: User!,
+        price: Int!,
+        userId: Int!,
         status: String!,
     }
     type Voucher{
@@ -238,7 +238,7 @@ const typeDefs = gql`
     }
     input createOrderInput {
         namePro: [String!]!,
-        price: String!,
+        price: Int!,
         userId: Int!,
         status: String!,
     }
@@ -315,7 +315,7 @@ const typeDefs = gql`
         updateVoucher(data: updateVoucherInput!, id: Int!): Voucher!,
         updateVoucherPremium(data: updateVoucherPremiumInput!, id: Int!): VoucherPremium!, 
         updateUser(data: updateUserInput!, email: String!): User!,
-        deleteUser(id: Int!): User!,
+        deleteUser(id: Int!): User,
         updateDress(data: updateDressInput!, proId: Int!): Dress!,
         updateSkirt(data: updateSkirtInput!, proId: Int!):Skirt!,
         updateShirt(data: updateShirtInput!, proId: Int!):Shirt!,

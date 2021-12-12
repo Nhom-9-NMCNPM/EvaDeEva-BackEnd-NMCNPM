@@ -295,11 +295,17 @@ const Mutation = {
         }, info);
     },
     async deleteUser(parent, args, {prisma, request}, info){
-        return prisma.user.delete({
+        const deleteOrder = prisma.order.deleteMany({
             where:{
-                id:args.id
+                userId: args.id,
             }
         })
+        const deleteUser = prisma.user.delete({
+            where:{
+                id: args.id
+            }
+        })
+        const transaction = await prisma.$transaction([deleteOrder, deleteUser]);
     }
 }
 export default Mutation;
