@@ -78,7 +78,7 @@ const Mutation = {
             const randomName = generateRandomString(12)+ext;
             const pathName = path.join(__dirname, `../../public/img/${randomName}`);
             await stream.pipe(fs.createWriteStream(pathName));
-            return `https://database-project1-demo.herokuapp.com/img/${randomName}`
+            return `http://localhost:4000/img/${randomName}`
         })
         return {
             url
@@ -97,14 +97,14 @@ const Mutation = {
         return status;
     },
     async createVoucher(parent, args, {prisma, request}, info){
-        return await prisma.voucher.create({
+        return  prisma.voucher.create({
             data:{
                 ...args.data,
             }
         }, info)
     },
     async createVoucherPremium(parent, args, {prisma, request}, info){
-        return await prisma.voucherPremium.create({
+        return  prisma.voucherPremium.create({
             data:{
                 ...args.data,
             }

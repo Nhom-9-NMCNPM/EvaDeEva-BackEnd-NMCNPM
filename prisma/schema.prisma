@@ -136,7 +136,7 @@ model Voucher {
 model VoucherPremium {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   disCount  Int
   condition Int
 }
