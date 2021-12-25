@@ -109,6 +109,13 @@ const typeDefs = gql`
         userId: Int!,
         status: String!,
     }
+    type Sales{
+        id: Int!,
+        createdAt: String!,
+        updatedAt: String!,
+        disCount: Int!,
+        publish: Boolean!,
+    }
     type Voucher{
         id: Int!,
         createdAt: String!, 
@@ -134,6 +141,8 @@ const typeDefs = gql`
         getOrder: [Order!]!,
         getVoucher: [Voucher!]!,
         getVoucherPremium: [VoucherPremium!]!,
+        getSales: [Sales!]!,
+        getSale: Sales!,
     }
     type File {
         url: [String!]!
@@ -217,9 +226,10 @@ const typeDefs = gql`
         newPro: Boolean!
     }
     input updateUserInput {
-        name: String!,
-        phoneNumber: String!,
-        address: String!,
+        name: String,
+        phoneNumber: String,
+        address: String,
+        point: Int,
     }
     input updateDressInput {
         name: String!,
@@ -298,10 +308,16 @@ const typeDefs = gql`
         publish: Boolean!,
         newPro: Boolean!
     }
+    input updateSalesInput {
+        disCount: Int,
+        publish: Boolean
+    }
     type Mutation{
         # login(data: LoginInput!): AuthPayload!
         # createUser(data: CreatedUserInput!): AuthPayload!
         # updateUser(data: UpdatedUserInput!): User!
+        createSales(disCount: Int!, publish: Boolean!):Sales!,
+        updateSales(id: Int!, data: updateSalesInput!): Sales!,
         createVoucher(data: createVoucherInput!):Voucher!,
         createVoucherPremium(data: createVoucherPremiumInput!):VoucherPremium!,
         createUser(data: createUserInput!): User!
@@ -314,7 +330,7 @@ const typeDefs = gql`
         createTrousers(data: createTrousersInput!): Trousers!,
         updateVoucher(data: updateVoucherInput!, id: Int!): Voucher!,
         updateVoucherPremium(data: updateVoucherPremiumInput!, id: Int!): VoucherPremium!, 
-        updateUser(data: updateUserInput!, email: String!): User!,
+        updateUser(data: updateUserInput!, email: String, userId: Int): User!,
         deleteUser(id: Int!): User,
         updateDress(data: updateDressInput!, proId: Int!): Dress!,
         updateSkirt(data: updateSkirtInput!, proId: Int!):Skirt!,

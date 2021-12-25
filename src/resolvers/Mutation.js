@@ -171,14 +171,26 @@ const Mutation = {
         }, info)
     },
     async updateUser(parent, args, {prisma, request}, info){
-        return prisma.user.update({
-            where:{
-                email: args.email,
-            },
-            data:{
-                ...args.data,
-            }
-        }, info);
+        if(args.email){
+            return prisma.user.update({
+                where:{
+                    email: args.email,
+                },
+                data:{
+                    ...args.data,
+                }
+            }, info);
+        }else{
+            return prisma.user.update({
+                where:{
+                    id: args.userId,
+                },
+                data:{
+                    ...args.data,
+                }
+            }, info);
+        }
+        
     }, 
     async updateVoucher(parent, args, {prisma, request}, info){
         return prisma.voucher.update({
@@ -302,6 +314,24 @@ const Mutation = {
             }
         })
         const transaction = await prisma.$transaction([deleteOrder, deleteUser]);
+    },
+    async createSales(parent, args, {prisma, request}, info){
+        return prisma.sales.create({
+            data:{
+                disCount: args.disCount,
+                publish: args.publish,
+            }
+        }, info);
+    }, 
+    async updateSales(parent, args,{prisma, request}, info){
+        return prisma.sales.update({
+            where:{
+                id: args.id
+            }, 
+            data:{
+                ...args.data
+            }
+        }, info);
     }
 }
 export default Mutation;

@@ -33,6 +33,16 @@ const Query = {
     }, 
     async getVoucherPremium(parent, agrs, {prisma}, info) {
         return await prisma.voucherPremium.findMany();
+    }, 
+    async getSales(parent, agrs, {prisma}, info) {
+        return await prisma.sales.findMany();
+    },
+    async getSale(parent, agrs, {prisma}, info){
+        return await prisma.sales.findFirst({
+            where: {
+                publish: true,
+            }
+        })
     }
 }
 export default Query;
