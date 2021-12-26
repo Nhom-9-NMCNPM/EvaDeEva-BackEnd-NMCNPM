@@ -1,7 +1,3 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import getUserId from "../util/getUserId";
-import getNewToken from "../util/getNewToken";
 const path = require("path");
 const fs = require("fs");
 
@@ -101,14 +97,14 @@ const Mutation = {
         return status;
     },
     async createVoucher(parent, args, {prisma, request}, info){
-        return await prisma.voucher.create({
+        return  prisma.voucher.create({
             data:{
                 ...args.data,
             }
         }, info)
     },
     async createVoucherPremium(parent, args, {prisma, request}, info){
-        return await prisma.voucherPremium.create({
+        return  prisma.voucherPremium.create({
             data:{
                 ...args.data,
             }
@@ -175,14 +171,26 @@ const Mutation = {
         }, info)
     },
     async updateUser(parent, args, {prisma, request}, info){
-        return prisma.user.update({
-            where:{
-                email: args.email,
-            },
-            data:{
-                ...args.data,
-            }
-        }, info);
+        if(args.email){
+            return prisma.user.update({
+                where:{
+                    email: args.email,
+                },
+                data:{
+                    ...args.data,
+                }
+            }, info);
+        }else{
+            return prisma.user.update({
+                where:{
+                    id: args.userId,
+                },
+                data:{
+                    ...args.data,
+                }
+            }, info);
+        }
+        
     }, 
     async updateVoucher(parent, args, {prisma, request}, info){
         return prisma.voucher.update({
@@ -290,16 +298,40 @@ const Mutation = {
                 id: args.id
             },
             data: {
-                status: "đã hủy",
+                status: "Hủy đơn hàng",
             }
         }, info);
     },
     async deleteUser(parent, args, {prisma, request}, info){
-        return prisma.user.delete({
+        const deleteOrder = prisma.order.deleteMany({
             where:{
-                id:args.id
+                userId: args.id,
             }
         })
+        const deleteUser = prisma.user.delete({
+            where:{
+                id: args.id
+            }
+        })
+        const transaction = await prisma.$transaction([deleteOrder, deleteUser]);
+    },
+    async createSales(parent, args, {prisma, request}, info){
+        return prisma.sales.create({
+            data:{
+                disCount: args.disCount,
+                publish: args.publish,
+            }
+        }, info);
+    }, 
+    async updateSales(parent, args,{prisma, request}, info){
+        return prisma.sales.update({
+            where:{
+                id: args.id
+            }, 
+            data:{
+                ...args.data
+            }
+        }, info);
     }
 }
 export default Mutation;
