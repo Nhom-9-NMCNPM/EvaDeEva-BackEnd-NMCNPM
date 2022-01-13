@@ -43,6 +43,9 @@ const Query = {
                 publish: true,
             }
         })
+    },
+    async getAccessory(parent, agrs, {prisma}, info) {
+        return await prisma.accessory.findMany();
     }
 }
 export default Query;

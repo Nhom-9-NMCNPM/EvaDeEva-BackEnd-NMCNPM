@@ -167,7 +167,14 @@ const Mutation = {
             }
         }, info);
     },
-    async createOrder(parent, args, {prisma}, info){
+    async createAccessory(parent, args, {prisma, request}, info){
+        return prisma.accessory.create({
+            data: {
+                ...args.data,
+            }
+        }, info);
+    },
+    async createOrder(parent, args, {prisma, request}, info){
         return prisma.order.create({
             data: {
                 ...args.data,
@@ -219,8 +226,16 @@ const Mutation = {
             }, 
             data:{...args.data}
         }, info);
-    }, 
-    async updateSkirt(parent, args, {prisma}, info){
+    },
+    async updateAccessory(parent, args, {prisma, request}, info){
+        return prisma.accessory.update({
+            where:{
+                id: args.proId,
+            }, 
+            data:{...args.data}
+        }, info);
+    },  
+    async updateSkirt(parent, args, {prisma, request}, info){
         return prisma.skirt.update({
             where:{
                 id: args.proId,
@@ -264,8 +279,15 @@ const Mutation = {
                 id: args.id
             }
         }, info);
-    }, 
-    async deleteSkirt(parent, args, {prisma}, info){
+    },
+    async deleteAccessory(parent, args, {prisma, request}, info){
+        return prisma.accessory.delete({
+            where:{
+                id: args.id
+            }
+        }, info);
+    },  
+    async deleteSkirt(parent, args, {prisma, request}, info){
         return prisma.skirt.delete({
             where:{
                 id: args.id
