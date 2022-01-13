@@ -130,11 +130,27 @@ const typeDefs = gql`
         disCount: Int!,
         condition: Int!,
     }
+    type Accessory{
+        id:   Int     
+        createdAt: String!,
+        updatedAt: String!,
+        name: String!,
+        description: String!,
+        img:    [String!]!,
+        price: Int! ,
+        codePro:  String!,
+        count: Int!,
+        material:  String!,
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
+    }
     type Query {
         getDress:[Dress!]!,
         getTrousers:[Trousers!]!,
         getShirt:[Shirt!]!,
         getSkirt:[Skirt!]!,
+        getAccessory: [Accessory!]!,
         getBannerImg:[BannerImg!]!,
         getSliderImg:[SliderImg!]!,
         getUser: [User!]!,
@@ -143,7 +159,15 @@ const typeDefs = gql`
         getVoucherPremium: [VoucherPremium!]!,
         getSales: [Sales!]!,
         getSale: Sales!,
+        
     }
+
+    type Subscription{
+        EventCreate: Sales,
+        VoucherCreate: Voucher,
+        OrderUpdate(userId: Int): Order,
+    }
+
     type File {
         url: [String!]!
     }
@@ -164,6 +188,18 @@ const typeDefs = gql`
         point: Int!,
         admin: Boolean!,
         staff: Boolean!,
+    }
+    input createAccessoryInput {
+        name: String!,
+        description: String!,
+        img:    [String!]!,
+        price: Int! ,
+        codePro:  String!,
+        count: Int!
+        material:  String!,
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
     }
     input createDressInput {
         name: String!,
@@ -232,6 +268,21 @@ const typeDefs = gql`
         point: Int,
     }
     input updateDressInput {
+        name: String!,
+        description: String!,
+        img:    [String],
+        price: Int! ,
+        codePro:  String!,
+        size_M:  Int!,
+        size_S:  Int!,
+        size_L: Int!,
+        size_XL: Int!,
+        material:  String!,
+        color: String!,
+        publish: Boolean!,
+        newPro: Boolean!
+    }
+    input updateAccessoryInput {
         name: String!,
         description: String!,
         img:    [String],
@@ -323,6 +374,7 @@ const typeDefs = gql`
         createUser(data: createUserInput!): User!
         upLoadFile(file: [Upload!]!): File!,
         deleteFile(filesName: [String]):String,
+        createAccessory(data: createAccessoryInput!): Accessory!,
         createDress(data: createDressInput!): Dress!,
         createSkirt(data: createSkirtInput!): Skirt!,
         createShirt(data: createShirtInput!): Shirt!,
@@ -332,6 +384,7 @@ const typeDefs = gql`
         updateVoucherPremium(data: updateVoucherPremiumInput!, id: Int!): VoucherPremium!, 
         updateUser(data: updateUserInput!, email: String, userId: Int): User!,
         deleteUser(id: Int!): User,
+        updateAccessory(data: updateAccessoryInput!, proId: Int!): Accessory!,
         updateDress(data: updateDressInput!, proId: Int!): Dress!,
         updateSkirt(data: updateSkirtInput!, proId: Int!):Skirt!,
         updateShirt(data: updateShirtInput!, proId: Int!):Shirt!,
@@ -343,6 +396,7 @@ const typeDefs = gql`
         deleteOrder(id: Int!): Order!,
         deleteDress(id: Int!): Dress!,
         deleteVoucher(id: Int!):Voucher!,
+        deleteAccessory(id: Int!): Accessory!,
         deleteVoucherPremium(id: Int!):VoucherPremium!,
     }
 `;

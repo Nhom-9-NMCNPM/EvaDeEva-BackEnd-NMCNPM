@@ -1,6 +1,12 @@
-import prisma from './context';
+import {prisma, pubsub} from './context';
 import typeDefs from './schema';
 import resolvers from './resolvers/index';
+import { createServer } from 'http';
+import { execute, subscribe } from 'graphql';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+
+
 const cors = require('cors');
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
@@ -10,27 +16,32 @@ const {
 
 
 async function startServer() {
+    const app = express();
+    app.use(graphqlUploadExpress());
+    app.use(cors());
+    app.use(express.static('public'))
+    const httpServer = createServer(app);
+    const schema = makeExecutableSchema({ typeDefs, resolvers });
     const server = new ApolloServer({
-      typeDefs,
-      resolvers,
-      context(request) {
-            return {
-                prisma,
-                request, 
-            }
-        },
+      schema,
+      context: {
+        prisma,
+        pubsub
+      }
     });
     await server.start();
   
-    const app = express();
-  
-    // This middleware should be added before calling `applyMiddleware`.
-    app.use(graphqlUploadExpress());
-    app.use(cors());
     server.applyMiddleware({ app });
-    app.use(express.static('public'))
-  
-    await new Promise(r => app.listen({ port: process.env.PORT || 4000 }, r));
+    SubscriptionServer.create({
+        schema,
+        execute,
+        subscribe,
+    }, {
+        server: httpServer,
+        path: '/graphql',
+    });
+ 
+    await new Promise(r => httpServer.listen({ port: process.env.PORT || 4000 }, r));
   
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
   }

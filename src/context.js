@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
+import { PubSub } from 'graphql-subscriptions';
 
-const prisma = new PrismaClient()
-
-export default prisma; 
+export const pubsub = new PubSub();
+export const prisma = new PrismaClient()
