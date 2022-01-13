@@ -161,6 +161,13 @@ const typeDefs = gql`
         getSale: Sales!,
         
     }
+
+    type Subscription{
+        EventCreate: Sales,
+        VoucherCreate: Voucher,
+        OrderUpdate(userId: Int): Order,
+    }
+
     type File {
         url: [String!]!
     }

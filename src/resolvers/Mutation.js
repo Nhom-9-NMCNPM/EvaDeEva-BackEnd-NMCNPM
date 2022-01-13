@@ -96,21 +96,25 @@ const Mutation = {
         })
         return status;
     },
-    async createVoucher(parent, args, {prisma, request}, info){
-        return  prisma.voucher.create({
+    async createVoucher(parent, args, {prisma, pubsub}, info){
+        const Voucher = await prisma.voucher.create({
             data:{
                 ...args.data,
             }
-        }, info)
+        }, info);
+        pubsub.publish('VOUCHER_CREATE', {
+            VoucherCreate: Voucher
+        })
+        return Voucher
     },
-    async createVoucherPremium(parent, args, {prisma, request}, info){
+    async createVoucherPremium(parent, args, {prisma}, info){
         return  prisma.voucherPremium.create({
             data:{
                 ...args.data,
             }
         }, info)
     },
-    async createUser(parent, args, {prisma, request}, info){
+    async createUser(parent, args, {prisma}, info){
         const userExist = await prisma.user.findUnique({
             where: {
                 email: args.data.email
@@ -135,28 +139,28 @@ const Mutation = {
             }, info);
         }
     },
-    async createDress(parent, args, {prisma, request}, info){
+    async createDress(parent, args, {prisma}, info){
         return prisma.dress.create({
             data: {
                 ...args.data,
             }
         }, info);
     },
-    async createShirt(parent, args, {prisma, request}, info){
+    async createShirt(parent, args, {prisma}, info){
         return prisma.shirt.create({
             data:{
                 ...args.data,
             }
         }, info);
     },
-    async createSkirt(parent, args, {prisma, request}, info){
+    async createSkirt(parent, args, {prisma}, info){
         return prisma.skirt.create({
             data: {
                 ...args.data,
             }
         }, info);
     },
-    async createTrousers(parent, args, {prisma, request}, info){
+    async createTrousers(parent, args, {prisma}, info){
         return prisma.trousers.create({
             data: {
                 ...args.data,
@@ -177,7 +181,7 @@ const Mutation = {
             }
         }, info)
     },
-    async updateUser(parent, args, {prisma, request}, info){
+    async updateUser(parent, args, {prisma}, info){
         if(args.email){
             return prisma.user.update({
                 where:{
@@ -199,7 +203,7 @@ const Mutation = {
         }
         
     }, 
-    async updateVoucher(parent, args, {prisma, request}, info){
+    async updateVoucher(parent, args, {prisma}, info){
         return prisma.voucher.update({
             where:{
                 id: args.id,
@@ -207,7 +211,7 @@ const Mutation = {
             data:{...args.data}
         }, info)
     },
-    async updateVoucherPremium(parent, args, {prisma, request}, info){
+    async updateVoucherPremium(parent, args, {prisma}, info){
         return prisma.voucherPremium.update({
             where:{
                 id: args.id,
@@ -215,7 +219,7 @@ const Mutation = {
             data:{...args.data}
         }, info)
     },
-    async updateDress(parent, args, {prisma, request}, info){
+    async updateDress(parent, args, {prisma}, info){
         return prisma.dress.update({
             where:{
                 id: args.proId,
@@ -239,7 +243,7 @@ const Mutation = {
             data:{...args.data}
         }, info);
     }, 
-    async updateShirt(parent, args, {prisma, request}, info){
+    async updateShirt(parent, args, {prisma}, info){
         return prisma.shirt.update({
             where:{
                 id: args.proId,
@@ -247,7 +251,7 @@ const Mutation = {
             data:{...args.data}
         }, info);
     }, 
-    async updateTrousers(parent, args, {prisma, request}, info){
+    async updateTrousers(parent, args, {prisma}, info){
         return prisma.trousers.update({
             where:{
                 id: args.proId,
@@ -255,17 +259,21 @@ const Mutation = {
             data:{...args.data}
         }, info);
     },
-    async updateOrder(parent, args, {prisma, request}, info) {
-        return prisma.order.update({
+    async updateOrder(parent, args, {prisma, pubsub}, info) {
+        const Order = await prisma.order.update({
             where: {
                 id: args.id
             },
             data: {
                 ...args.data,
             },
-        },info)
+        },info);
+        pubsub.publish(`ORDER_UPDATE_${Order.userId}`, {
+            OrderUpdate: Order
+        })
+        return Order;
     },
-    async deleteDress(parent, args, {prisma, request}, info){
+    async deleteDress(parent, args, {prisma}, info){
         return prisma.dress.delete({
             where:{
                 id: args.id
@@ -286,35 +294,35 @@ const Mutation = {
             }
         }, info)
     }, 
-    async deleteShirt(parent, args, {prisma, request}, info){
+    async deleteShirt(parent, args, {prisma}, info){
         return prisma.shirt.delete({
             where:{
                 id: args.id
             }
         }, info)
     }, 
-    async deleteVoucher(parent, args, {prisma, request}, info){
+    async deleteVoucher(parent, args, {prisma}, info){
         return prisma.voucher.delete({
             where:{
                 id: args.id
             }
         }, info)
     },
-    async deleteVoucherPremium(parent, args, {prisma, request}, info){
+    async deleteVoucherPremium(parent, args, {prisma}, info){
         return prisma.voucherPremium.delete({
             where:{
                 id: args.id
             }
         }, info)
     },
-    async deleteTrousers(parent, args, {prisma, request}, info){
+    async deleteTrousers(parent, args, {prisma}, info){
         return prisma.trousers.delete({
             where:{
                 id: args.id
             }
         }, info)
     },
-    async deleteOrder(parent, args, {prisma, request}, info){
+    async deleteOrder(parent, args, {prisma}, info){
         return prisma.order.update({
             where:{
                 id: args.id
@@ -324,7 +332,7 @@ const Mutation = {
             }
         }, info);
     },
-    async deleteUser(parent, args, {prisma, request}, info){
+    async deleteUser(parent, args, {prisma}, info){
         const deleteOrder = prisma.order.deleteMany({
             where:{
                 userId: args.id,
@@ -337,15 +345,19 @@ const Mutation = {
         })
         const transaction = await prisma.$transaction([deleteOrder, deleteUser]);
     },
-    async createSales(parent, args, {prisma, request}, info){
-        return prisma.sales.create({
+    async createSales(parent, args, {prisma, pubsub}, info){
+        const Sale = await prisma.sales.create({
             data:{
                 disCount: args.disCount,
                 publish: args.publish,
             }
         }, info);
+        pubsub.publish('EVENT_CREATE',{
+            EventCreate: Sale
+        })
+        return Sale;
     }, 
-    async updateSales(parent, args,{prisma, request}, info){
+    async updateSales(parent, args,{prisma}, info){
         return prisma.sales.update({
             where:{
                 id: args.id
