@@ -140,10 +140,27 @@ model VoucherPremium {
   disCount  Int
   condition Int
 }
+
 model Sales {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  disCount Int
-  publish Boolean
+  disCount  Int
+  publish   Boolean
+}
+
+model Accessory {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  price       Int
+  codePro     String
+  count       Int  
+  material    String
+  color       String
+  publish     Boolean
+  img         String[]
+  newPro      Boolean
 }
