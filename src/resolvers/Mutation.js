@@ -174,12 +174,16 @@ const Mutation = {
             }
         }, info);
     },
-    async createOrder(parent, args, {prisma, request}, info){
-        return prisma.order.create({
+    async createOrder(parent, args, {prisma, pubsub}, info){
+        const newOrder = await prisma.order.create({
             data: {
                 ...args.data,
             }
         }, info)
+        pubsub.publish('NEW_ORDER', {
+            NewOrder: newOrder
+        })
+        return newOrder;
     },
     async updateUser(parent, args, {prisma}, info){
         if(args.email){
@@ -366,6 +370,13 @@ const Mutation = {
                 ...args.data
             }
         }, info);
+    },
+    async deleteSale(parent, args, {prisma}, info){
+        return prisma.sales.delete({
+            where:{
+                id: args.id
+            }
+        })
     }
 }
 export default Mutation;

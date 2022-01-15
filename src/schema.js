@@ -166,6 +166,7 @@ const typeDefs = gql`
         EventCreate: Sales,
         VoucherCreate: Voucher,
         OrderUpdate(userId: Int): Order,
+        NewOrder: Order
     }
 
     type File {
@@ -360,7 +361,6 @@ const typeDefs = gql`
         newPro: Boolean!
     }
     input updateSalesInput {
-        disCount: Int,
         publish: Boolean
     }
     type Mutation{
@@ -398,6 +398,7 @@ const typeDefs = gql`
         deleteVoucher(id: Int!):Voucher!,
         deleteAccessory(id: Int!): Accessory!,
         deleteVoucherPremium(id: Int!):VoucherPremium!,
+        deleteSale(id: Int!): Sales!,
     }
 `;
 

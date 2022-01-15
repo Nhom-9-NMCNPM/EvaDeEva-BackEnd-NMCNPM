@@ -14,6 +14,11 @@ const Subscription = {
         subscribe(parent, {userId}, context, info){
             return pubsub.asyncIterator([`ORDER_UPDATE_${userId}`]);
         }
+    }, 
+    NewOrder:{
+        subscribe(parent,args, context, info){
+            return pubsub.asyncIterator(['NEW_ORDER']);
+        }
     }
 }
 export default Subscription;
